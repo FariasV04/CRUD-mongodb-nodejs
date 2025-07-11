@@ -2,6 +2,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import VendaMensal from "./VendaMensal.js";
 
 //configuração da variavel de ambiente 
 dotenv.config();
@@ -18,8 +19,21 @@ const ConectDB = async() => {
     } catch (error) {
         console.log("Deu Erro ao conectar com o MongoDB", error);
     }
-}
+};
 
-ConectDB()
+ConectDB();
 
-app.listen(port, () => console.log(`O Servidor está rodando a porta ${port}`))
+// Midleware
+app.use(express.json());
+
+// Rotas/CREATE
+app.post("/vendas", async (req,res) => {
+    try {
+        const NovaVendaMensal = await VendaMensal.create(req.body);
+        res.json(NovaVendaMensal);
+    } catch (error) {
+        res.json({error: error});
+    }
+});
+
+app.listen(port, () => console.log(`O Servidor está rodando a porta ${port}`));
