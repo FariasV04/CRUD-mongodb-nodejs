@@ -60,4 +60,17 @@ app.put("/vendas/:id", async (req, res) => {
     }
 });
 
+// Rotas/DELETE
+
+app.delete("/vendas/:id", async (req, res) => {
+    try {
+        const VendaMensaisExcluida = await VendaMensal.findByIdAndDelete(
+            req.params.id
+            );
+        res.json(VendaMensaisExcluida);
+    } catch (error) {
+        res.json({error: error});
+    }
+});
+
 app.listen(port, () => console.log(`O Servidor está rodando a porta ${port}`));
