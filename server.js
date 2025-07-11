@@ -35,5 +35,29 @@ app.post("/vendas", async (req,res) => {
         res.json({error: error});
     }
 });
+// Rotas/READ
+app.get("/vendas", async (req, res) => {
+    try {
+        const VendaMensais = await VendaMensal.find();
+        res.json(VendaMensais);
+    } catch (error) {
+        res.json({error: error});
+    }
+});
+
+// Rotas/UPDATE
+
+app.put("/vendas/:id", async (req, res) => {
+    try {
+        const novaVendaMensais = await VendaMensal.findByIdAndUpdate(
+            req.params.id,
+             req.body,
+             { new: true }
+            );
+        res.json(novaVendaMensais);
+    } catch (error) {
+        res.json({error: error});
+    }
+});
 
 app.listen(port, () => console.log(`O Servidor está rodando a porta ${port}`));
