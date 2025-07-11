@@ -20,4 +20,6 @@ const ConectDB = async() => {
     }
 }
 
+ConectDB()
+
 app.listen(port, () => console.log(`O Servidor está rodando a porta ${port}`))
